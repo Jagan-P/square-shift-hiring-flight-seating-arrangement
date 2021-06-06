@@ -1,0 +1,70 @@
+html
+  head
+    <title>Flighting arrangement</title>
+    style.
+        #flight-cabin {
+            display: flex;
+            align-items: baseline;
+        }
+        .block {
+            margin: 10px;
+        }
+        .box {
+            color: white;
+            padding: 10px;
+            display: inline-block;
+            border: 1px solid black;
+            width: 15px;
+            height: 15px;
+        }
+        .green-box {
+            background-color: green;
+        }
+        .red-box {
+            background-color: red;
+        }
+        .blue-box {
+            background-color: blue;
+        }
+  body
+    <h1>Total passengers - #{numberOfPassengers}</h1>
+    <div id="flight-cabin">
+
+    </div>
+    script.
+        let seatingArrangements="#{seatingArrangements}";
+        let rowsColumnsSeats="#{rowsColumnsSeats}";
+        seatingArrangements=seatingArrangements.replace(/&quot;/g, '"');
+        seatingArrangements = JSON.parse(seatingArrangements);
+        rowsColumnsSeats=rowsColumnsSeats.replace(/&quot;/g, '"');
+        rowsColumnsSeats = JSON.parse(rowsColumnsSeats);
+        let seatingString = '';
+        for(let block=0; block<seatingArrangements.length; block++) {
+            seatingString+="<div class='block'>"
+            for(let box=0; box<seatingArrangements[block].length; box++) {
+                
+                if(typeof seatingArrangements[block][box]=="object") {
+                    let occupiedBy;
+                    if(isNaN(seatingArrangements[block][box].is_occupied_by)) {
+                        occupiedBy='&nbsp;&nbsp;';
+                    }
+                    else {
+                        occupiedBy=seatingArrangements[block][box].is_occupied_by;
+                    } 
+                    if(seatingArrangements[block][box].seat_type=='w') {
+                        seatingString+='<span class="box green-box">'+ occupiedBy+'</span>'
+                    }
+                    else if(seatingArrangements[block][box].seat_type=='c') {
+                        seatingString+='<span class="box red-box">'+occupiedBy+'</span>'
+                    }
+                    else if(seatingArrangements[block][box].seat_type=='a') {
+                        seatingString+='<span class="box blue-box">'+occupiedBy+'</span>'
+                    }
+                }
+                if((box+1)>=rowsColumnsSeats[block][0] && ((box+1)%rowsColumnsSeats[block][0]==0)) {
+                    seatingString+="<br/>";
+                }
+            }
+            seatingString+="</div>"
+        }
+        document.getElementById("flight-cabin").insertAdjacentHTML( 'beforeend', seatingString);
