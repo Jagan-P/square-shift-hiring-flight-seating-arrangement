@@ -1,18 +1,5 @@
 /* ------------------- START OF INPUT TO THE PROGRAM ------------------------------------------------ */
 exports.returnSeating = function (rowsColumnsSeats, numberOfPassengers) {
-//   let rowsColumnsSeats = [
-//     [3, 2],
-//     [4, 3],
-//     [2, 3],
-//     [3, 4],
-//   ];
-  // let rowsColumnsSeats = [
-  //     [3,4],
-  //     [4,5],
-  //     [2,3],
-  //     [3,4]
-  // ]
-  // let numberOfPassengers = 30;
   /* ------------------- END OF INPUT TO THE PROGRAM --------------------------------------------------- */
 
   /* ------------------- START OF GLOBAL VARIABLES --------------------------------------------------- */
@@ -47,7 +34,7 @@ exports.returnSeating = function (rowsColumnsSeats, numberOfPassengers) {
     let j = 0;
     let k = 0;
     let currentRow = {};
-    for (k = 0; k < maxColumns; k++) {
+    for (k = 0; k < maxRows; k++) {
       for (i = 0; i < rowsColumnsSeats.length; i++) {
         for (j = 0; j < rowsColumnsSeats[i][0]; j++) {
           if (typeof blockMap[i][j + k + (currentRow[i] || 0)] == "object") {
